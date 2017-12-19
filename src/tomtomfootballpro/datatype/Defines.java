@@ -15,7 +15,7 @@ public class Defines {
     
     // csv columns
     public static String CSV_COLUMN_TIME = "time";
-    public static String CSV_COLUMN_ACTIVITY_TYPE = "activity type";
+    public static String CSV_COLUMN_ACTIVITY_TYPE = "activityType";
     public static String CSV_COLUMN_LAP_NUMBER = "lapNumber";
     public static String CSV_COLUMN_DISTANCE = "distance";
     public static String CSV_COLUMN_SPEED = "speed";
@@ -24,4 +24,7 @@ public class Defines {
     public static String CSV_COLUMN_LONGTITUDE = "long";
     public static String CSV_COLUMN_ELEVATION = "elevation";
     public static String CSV_COLUMN_HEART_RATE = "heartRate";
+    
+    // csv end of records
+    public static String CSV_EOR = "-1";
 }
