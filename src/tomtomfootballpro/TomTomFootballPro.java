@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import tomtomfootballpro.datatype.TomTomSportsCSVReader;
+import tomtomfootballpro.datatype.TomTomSportsTCXReader;
 
 /**
  *
@@ -29,6 +30,9 @@ public class TomTomFootballPro extends Application {
         
         TomTomSportsCSVReader reader = new TomTomSportsCSVReader("/home/wangyu/Downloads/fit-20171217T143715.csv");
         reader.readTest();
+        
+        TomTomSportsTCXReader reader2 = new TomTomSportsTCXReader("/home/wangyu/Downloads/fit-20171217T143715.tcx");
+        reader2.readTest();
     }
 
     /**
