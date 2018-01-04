@@ -5,11 +5,13 @@
  */
 package tomtomfootballpro;
 
+import java.util.List;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import tomtomfootballpro.datatype.GPSItem;
 import tomtomfootballpro.datatype.TomTomSportsCSVReader;
 import tomtomfootballpro.datatype.TomTomSportsTCXReader;
 
@@ -33,6 +35,15 @@ public class TomTomFootballPro extends Application {
         
         TomTomSportsTCXReader reader2 = new TomTomSportsTCXReader("/home/wangyu/Downloads/fit-20171217T143715.tcx");
         reader2.readTest();
+        List<GPSItem> list = reader2.generateGPSItemList();
+        System.out.println("-------GPSItem List size: " + list.size() );
+        for (GPSItem i:list) {
+            System.out.println("-------------------------------");
+            System.out.println("time: " + i.getTime());
+            System.out.println("latitude: " + i.getCoordinate().getLatitude() + " longtitude: " + i.getCoordinate().getLongtitude());
+            System.out.println("elevation: " + i.getElevation());
+            System.out.println("distance: " + i.getDistance());
+        }
     }
 
     /**

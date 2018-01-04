@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.Reader;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,6 +82,37 @@ public class TomTomSportsTCXReader {
         return createXPath(null, null, path).selectNodes(document);
     }
     
+    public List<GPSItem> generateGPSItemList() {
+        List<GPSItem> list = new ArrayList();
+        List<Node> positions = getAllNodesByPath("Trackpoint");
+        System.out.println("number of trackpoint is " + positions.size());
+        for(Node n:positions) {
+            GPSItem newItem = new GPSItem();
+            
+            // time
+            newItem.setTime(positions.indexOf(n));
+            
+            // position
+            Element position = ((Element)n).element("Position");
+            Element latitude = position.element("LatitudeDegrees");
+            Element longtitude = position.element("LongitudeDegrees");
+            newItem.setCoordinate(new Coordinate(Double.parseDouble(latitude.getText()), 
+                    Double.parseDouble(longtitude.getText())));
+            
+            // elevation
+            Element elevation = ((Element)n).element("AltitudeMeters");
+            newItem.setElevation(Double.parseDouble(elevation.getText()));
+            
+            // distance
+            Element distance = ((Element)n).element("DistanceMeters");
+            newItem.setDistance(Double.parseDouble(distance.getText()));
+            
+            // add item to list
+            list.add(newItem);
+        }
+        return list;
+    }
+    
     public void readTest() {
         List<Node> positions = getAllNodesByPath("Trackpoint");
         System.out.println("number of trackpoint is " + positions.size());
@@ -88,7 +120,10 @@ public class TomTomSportsTCXReader {
             Element position = ((Element)n).element("Position");
             Element latitude = position.element("LatitudeDegrees");
             Element longtitude = position.element("LongitudeDegrees");
-            System.out.println("latitude: " + latitude.getText() + " longtitude: " + longtitude.getText());
+            
+            Element distance = ((Element)n).element("DistanceMeters");
+            System.out.println("latitude: " + latitude.getText() + " longtitude: " + longtitude.getText() 
+            + " distance: " + distance.getText());
         }
     }
 }
