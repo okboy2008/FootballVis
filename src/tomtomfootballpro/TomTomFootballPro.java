@@ -34,14 +34,14 @@ public class TomTomFootballPro extends Application {
         TomTomSportsCSVReader reader = new TomTomSportsCSVReader("/home/wangyu/Downloads/fit-20171217T143715.csv");
         reader.readTest();
         
-        TomTomSportsTCXReader reader2 = new TomTomSportsTCXReader("/home/wangyu/Downloads/fit-20171217T143715.tcx");
+        TomTomSportsTCXReader reader2 = new TomTomSportsTCXReader("/home/wangyu/Downloads/fit-20180107T141411.tcx");
         reader2.readTest();
         List<GPSItem> list = reader2.generateGPSItemList();
         System.out.println("-------GPSItem List size: " + list.size() );
-        Coordinate origin = new Coordinate(51.4371, 5.4076);
-        Coordinate second = new Coordinate(51.4369, 5.4080);
-        Coordinate width = new Coordinate(51.4369, 5.4080);
-        Coordinate height = new Coordinate(51.4374, 5.4082);
+        Coordinate origin = new Coordinate(51.437170, 5.407618);
+        Coordinate second = new Coordinate(51.437016, 5.407932);
+        Coordinate width = new Coordinate(51.437016, 5.407932);
+        Coordinate height = new Coordinate(51.437351, 5.408112);
         width.convertCoordinate(origin, second);
         height.convertCoordinate(origin, second);
         System.out.println("width: " + width.getX() + ", height: " + height.getY());

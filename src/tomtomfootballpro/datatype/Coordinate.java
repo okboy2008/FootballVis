@@ -73,8 +73,8 @@ public class Coordinate {
                 ", cosA: " + cosineA + ", sinA: " + sineA);
         System.out.println("newY: " + (y * cosineA - x * sineA) + ", height: " + height);
         double oldX = x;
-        x = abs((x * cosineA + y * sineA) / width * 100);
-        y = abs((y * cosineA - oldX * sineA) / height * 100);
+        x = (x * cosineA + y * sineA) / width * 100;
+        y = (y * cosineA - oldX * sineA) / height * 100;
         System.out.println("y: " + y + ", height: " + height);
     }
 }

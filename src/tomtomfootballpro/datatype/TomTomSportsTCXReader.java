@@ -94,18 +94,26 @@ public class TomTomSportsTCXReader {
             
             // position
             Element position = ((Element)n).element("Position");
+            if (position == null)
+                continue;
             Element latitude = position.element("LatitudeDegrees");
+            if (latitude == null)
+                continue;
             Element longtitude = position.element("LongitudeDegrees");
+            if (longtitude == null)
+                continue;
             newItem.setCoordinate(new Coordinate(Double.parseDouble(latitude.getText()), 
                     Double.parseDouble(longtitude.getText())));
             
             // elevation
             Element elevation = ((Element)n).element("AltitudeMeters");
-            newItem.setElevation(Double.parseDouble(elevation.getText()));
+            if (elevation != null)
+                newItem.setElevation(Double.parseDouble(elevation.getText()));
             
             // distance
             Element distance = ((Element)n).element("DistanceMeters");
-            newItem.setDistance(Double.parseDouble(distance.getText()));
+            if (distance != null)
+                newItem.setDistance(Double.parseDouble(distance.getText()));
             
             // add item to list
             list.add(newItem);
@@ -118,10 +126,18 @@ public class TomTomSportsTCXReader {
         System.out.println("number of trackpoint is " + positions.size());
         for(Node n:positions) {
             Element position = ((Element)n).element("Position");
+            if (position == null)
+                continue;
             Element latitude = position.element("LatitudeDegrees");
+            if (latitude == null)
+                continue;
             Element longtitude = position.element("LongitudeDegrees");
-            
+            if (longtitude == null)
+                continue;
             Element distance = ((Element)n).element("DistanceMeters");
+            if (distance == null)
+                continue;
+            
             System.out.println("latitude: " + latitude.getText() + " longtitude: " + longtitude.getText() 
             + " distance: " + distance.getText());
         }
