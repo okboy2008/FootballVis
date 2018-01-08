@@ -5,6 +5,9 @@
  */
 package tomtomfootballpro.datatype;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.sqrt;
+
 /**
  *
  * @author wangyu
@@ -32,5 +35,46 @@ public class Coordinate {
     
     public double getLongtitude() {
         return y;
+    }
+    
+    public void setNewOrigin(Coordinate origin) {
+        x = x - origin.getX();
+        y = y - origin.getY();
+    }
+    
+    // convert current coordinate to a new coordinate system 
+    // using origin-second as x axis
+    public void convertCoordinate(Coordinate origin, Coordinate second) {
+        Coordinate tmp = new Coordinate(second.getX(), second.getY());
+        tmp.setNewOrigin(origin);
+        setNewOrigin(origin);
+        
+        double longEdge = sqrt(tmp.getX() * tmp.getX() + 
+                          tmp.getY() * tmp.getY());
+        double cosineA = tmp.getX() / longEdge;
+        double sineA = tmp.getY() / longEdge;
+        System.out.println("x: " + tmp.getX() + ", y: " + tmp.getY() + ", longedge: " + longEdge +
+                ", cosA: " + cosineA + ", sinA: " + sineA);
+        
+        x = x * cosineA + y * sineA;
+        y = y * cosineA - x * sineA;
+    }
+    
+    public void convertCoordinate(Coordinate origin, Coordinate second, double width, double height) {
+        Coordinate tmp = new Coordinate(second.getX(), second.getY());
+        tmp.setNewOrigin(origin);
+        setNewOrigin(origin);
+        
+        double longEdge = sqrt(tmp.getX() * tmp.getX() + 
+                          tmp.getY() * tmp.getY());
+        double cosineA = tmp.getX() / longEdge;
+        double sineA = tmp.getY() / longEdge;
+        System.out.println("x: " + tmp.getX() + ", y: " + tmp.getY() + ", longedge: " + longEdge +
+                ", cosA: " + cosineA + ", sinA: " + sineA);
+        System.out.println("newY: " + (y * cosineA - x * sineA) + ", height: " + height);
+        double oldX = x;
+        x = abs((x * cosineA + y * sineA) / width * 100);
+        y = abs((y * cosineA - oldX * sineA) / height * 100);
+        System.out.println("y: " + y + ", height: " + height);
     }
 }

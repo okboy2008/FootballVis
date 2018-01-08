@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import tomtomfootballpro.datatype.Coordinate;
 import tomtomfootballpro.datatype.GPSItem;
 import tomtomfootballpro.datatype.TomTomSportsCSVReader;
 import tomtomfootballpro.datatype.TomTomSportsTCXReader;
@@ -37,7 +38,15 @@ public class TomTomFootballPro extends Application {
         reader2.readTest();
         List<GPSItem> list = reader2.generateGPSItemList();
         System.out.println("-------GPSItem List size: " + list.size() );
+        Coordinate origin = new Coordinate(51.4371, 5.4076);
+        Coordinate second = new Coordinate(51.4369, 5.4080);
+        Coordinate width = new Coordinate(51.4369, 5.4080);
+        Coordinate height = new Coordinate(51.4374, 5.4082);
+        width.convertCoordinate(origin, second);
+        height.convertCoordinate(origin, second);
+        System.out.println("width: " + width.getX() + ", height: " + height.getY());
         for (GPSItem i:list) {
+            i.getCoordinate().convertCoordinate(origin, second, width.getX(), height.getY());
             System.out.println("-------------------------------");
             System.out.println("time: " + i.getTime());
             System.out.println("latitude: " + i.getCoordinate().getLatitude() + " longtitude: " + i.getCoordinate().getLongtitude());
