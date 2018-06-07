@@ -33,7 +33,7 @@ public class Coordinate {
         return x;
     }
     
-    public double getLongtitude() {
+    public double getLongitude() {
         return y;
     }
     
@@ -55,9 +55,9 @@ public class Coordinate {
         double sineA = tmp.getY() / longEdge;
         System.out.println("x: " + tmp.getX() + ", y: " + tmp.getY() + ", longedge: " + longEdge +
                 ", cosA: " + cosineA + ", sinA: " + sineA);
-        
+        double oldX = x;
         x = x * cosineA + y * sineA;
-        y = y * cosineA - x * sineA;
+        y = y * cosineA - oldX * sineA;
     }
     
     public void convertCoordinate(Coordinate origin, Coordinate second, double width, double height) {
@@ -76,5 +76,13 @@ public class Coordinate {
         x = (x * cosineA + y * sineA) / width * 100;
         y = (y * cosineA - oldX * sineA) / height * 100;
         System.out.println("y: " + y + ", height: " + height);
+    }
+    
+    public void reverseXCoordinate() {
+        x = -x;
+    }
+    
+    public void reverseYCoordinate() {
+        y = -y;
     }
 }

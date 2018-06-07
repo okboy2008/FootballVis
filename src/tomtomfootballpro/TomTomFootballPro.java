@@ -46,10 +46,11 @@ public class TomTomFootballPro extends Application {
         height.convertCoordinate(origin, second);
         System.out.println("width: " + width.getX() + ", height: " + height.getY());
         for (GPSItem i:list) {
-            i.getCoordinate().convertCoordinate(origin, second, width.getX(), height.getY());
+            //i.getCoordinate().convertCoordinate(origin, second, width.getX(), height.getY());
+            i.getCoordinate().setNewOrigin(origin);
             System.out.println("-------------------------------");
             System.out.println("time: " + i.getTime());
-            System.out.println("latitude: " + i.getCoordinate().getLatitude() + " longtitude: " + i.getCoordinate().getLongtitude());
+            System.out.println("latitude: " + i.getCoordinate().getLatitude() + " longtitude: " + i.getCoordinate().getLongitude());
             System.out.println("elevation: " + i.getElevation());
             System.out.println("distance: " + i.getDistance());
         }
