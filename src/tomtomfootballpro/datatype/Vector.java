@@ -19,8 +19,8 @@ public class Vector {
     private double length;
     
     public Vector(Coordinate startPoint, Coordinate endPoint) {
-        this.startPoint = startPoint;
-        this.endPoint = endPoint;
+        this.startPoint = new Coordinate(startPoint);
+        this.endPoint = new Coordinate(endPoint);
         x = this.endPoint.getX() - this.startPoint.getX();
         y = this.endPoint.getY() - this.startPoint.getY();
         length = sqrt(x * x + y * y);
@@ -64,6 +64,18 @@ public class Vector {
 
     public void setLength(double length) {
         this.length = length;
+    }
+    
+    public void reverseX() {
+        startPoint.reverseXCoordinate();
+        endPoint.reverseXCoordinate();
+        x = endPoint.getX() - startPoint.getX();
+    }
+    
+    public void reverseY() {
+        startPoint.reverseYCoordinate();
+        endPoint.reverseYCoordinate();
+        y = endPoint.getY() - startPoint.getY();
     }
     
 }

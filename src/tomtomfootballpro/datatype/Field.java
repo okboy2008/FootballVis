@@ -17,6 +17,10 @@ public class Field {
     private Coordinate pointB;
     private Coordinate pointC;
     private Coordinate pointD;
+    private Coordinate pointArelative = new Coordinate(0,0);
+    private Coordinate pointBrelative = new Coordinate(100,0);
+    private Coordinate pointCrelative = new Coordinate(100,100);
+    private Coordinate pointDrelative = new Coordinate(0, 100);
     
     public Field(Coordinate a, Coordinate b, Coordinate c, Coordinate d) {
         pointA = a;
@@ -32,6 +36,36 @@ public class Field {
         range.add(pointB);
         range.add(pointC);
         range.add(pointD);
+        int vectorSize = range.size();
+        boolean crosses = false;
+
+        // If we cross the polygon an odd number of times, then the point is within the polygon
+        for (i = 0, j = vectorSize - 1; i < vectorSize; j = i++)
+        {
+            double polyLat1 = range.get(i).getLatitude();
+            double polyLon1 = range.get(i).getLongitude();
+            double polyLat2 = range.get(j).getLatitude();
+            double polyLon2 = range.get(j).getLongitude();
+            double pointLat = coord.getLatitude();
+            double pointLon = coord.getLongitude();
+
+            if (((polyLat1 > pointLat) != (polyLat2 > pointLat)) &&
+                (pointLon < (polyLon2 - polyLon1) * (pointLat - polyLat1) / (polyLat2 -  polyLat1) + polyLon1))
+            {
+                crosses = !crosses;
+            }
+        }
+
+        return crosses;
+    }
+    
+    public boolean isCoordinateInFieldRelative(Coordinate coord) {
+        int i, j = 0;
+        List<Coordinate> range = new ArrayList<>();
+        range.add(pointArelative);
+        range.add(pointBrelative);
+        range.add(pointCrelative);
+        range.add(pointDrelative);
         int vectorSize = range.size();
         boolean crosses = false;
 

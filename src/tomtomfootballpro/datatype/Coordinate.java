@@ -21,6 +21,11 @@ public class Coordinate {
         this.y = y;
     }
     
+    public Coordinate(Coordinate coord) {
+        x = coord.getX();
+        y = coord.getY();
+    }
+    
     public double getX() {
         return x;
     }
@@ -76,6 +81,21 @@ public class Coordinate {
         x = (x * cosineA + y * sineA) / width * 100;
         y = (y * cosineA - oldX * sineA) / height * 100;
         System.out.println("y: " + y + ", height: " + height);
+    }
+    
+    public void convertCoordinate(Coordinate origin, Vector v) {
+        setNewOrigin(origin);
+        double sinA = v.getY() / v.getLength();
+        double cosA = v.getX() / v.getLength();
+        double oldX = x;
+        x = x * cosA + y * sinA;
+        y = y * cosA - oldX * sinA;
+    }
+    
+    public void convertAndNormalizeCoordinate(Coordinate origin, Vector v, double width, double height) {
+        convertCoordinate(origin, v);
+        x = x / width * 100;
+        y = y / height * 100;
     }
     
     public void reverseXCoordinate() {

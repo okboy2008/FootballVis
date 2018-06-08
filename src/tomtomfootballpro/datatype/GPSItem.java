@@ -33,6 +33,18 @@ public class GPSItem {
         speed = DEFAULT_DOUBLE;
         elevation = DEFAULT_DOUBLE;
     }
+    
+    public GPSItem(GPSItem item) {
+        time = item.getTime();
+        activityType = item.getActivityType();
+        lapNumber = item.getLapNumber();
+        calories = item.getCalories();
+        heartRate = item.getHeartRate();
+        distance = item.getDistance();
+        speed = item.getSpeed();
+        elevation = item.getElevation();
+        coordinate = new Coordinate(item.getCoordinate().getX(), item.getCoordinate().getY());
+    }
 
     public int getTime() {
         return time;

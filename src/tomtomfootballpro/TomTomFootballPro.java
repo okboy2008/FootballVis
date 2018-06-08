@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import tomtomfootballpro.datatype.Activity;
 import tomtomfootballpro.datatype.Coordinate;
 import tomtomfootballpro.datatype.GPSItem;
 import tomtomfootballpro.datatype.TomTomSportsCSVReader;
@@ -31,29 +32,36 @@ public class TomTomFootballPro extends Application {
         stage.setScene(scene);
         stage.show();
         
-        TomTomSportsCSVReader reader = new TomTomSportsCSVReader("/home/wangyu/Downloads/fit-20171217T143715.csv");
-        reader.readTest();
+        //TomTomSportsCSVReader reader = new TomTomSportsCSVReader("/home/wangyu/Downloads/fit-20171217T143715.csv");
+        //reader.readTest();
         
+        
+        Coordinate a = new Coordinate(51.437157, 5.407560);
+        Coordinate b = new Coordinate(51.436985, 5.407988);
+        Coordinate c = new Coordinate(51.437255, 5.408255);
+        Coordinate d = new Coordinate(51.437431, 5.407888);
+        Activity activity = new Activity(a, b, c, d);
         TomTomSportsTCXReader reader2 = new TomTomSportsTCXReader("/home/wangyu/Downloads/fit-20180107T141411.tcx");
-        reader2.readTest();
-        List<GPSItem> list = reader2.generateGPSItemList();
-        System.out.println("-------GPSItem List size: " + list.size() );
-        Coordinate origin = new Coordinate(51.437170, 5.407618);
-        Coordinate second = new Coordinate(51.437016, 5.407932);
-        Coordinate width = new Coordinate(51.437016, 5.407932);
-        Coordinate height = new Coordinate(51.437351, 5.408112);
-        width.convertCoordinate(origin, second);
-        height.convertCoordinate(origin, second);
-        System.out.println("width: " + width.getX() + ", height: " + height.getY());
-        for (GPSItem i:list) {
-            //i.getCoordinate().convertCoordinate(origin, second, width.getX(), height.getY());
-            i.getCoordinate().setNewOrigin(origin);
-            System.out.println("-------------------------------");
-            System.out.println("time: " + i.getTime());
-            System.out.println("latitude: " + i.getCoordinate().getLatitude() + " longtitude: " + i.getCoordinate().getLongitude());
-            System.out.println("elevation: " + i.getElevation());
-            System.out.println("distance: " + i.getDistance());
+        // reader2.readTest();
+        activity.setGpsList(reader2.generateGPSItemList());
+        activity.convertCoordinates();
+        System.out.println("-------GPSItem List size: " + activity.getGpsList().size());
+        int count = 0;
+        for(GPSItem item:activity.getGpsList()) {
+            if (!activity.getField().isCoordinateInField(item.getCoordinate())) {
+                ++count;
+                //System.out.println("index " + activity.getGpsList().indexOf(item) + " coordinate x: " + item.getCoordinate().getX() + " y: " + item.getCoordinate().getY() + " is not in Field");
+            }
         }
+        int count1 = 0;
+        for(GPSItem item:activity.getCoordinateList()) {
+            if (!activity.getField().isCoordinateInFieldRelative(item.getCoordinate())) {
+                ++count1;
+                System.out.println("index " + activity.getCoordinateList().indexOf(item) + " coordinate x: " + item.getCoordinate().getX() + " y: " + item.getCoordinate().getY() + " is not in Field");
+            }
+        }
+        System.out.println(count + " original coordinates are not in field...");
+        System.out.println(count1 + " coordinates are not in field...");
     }
 
     /**
