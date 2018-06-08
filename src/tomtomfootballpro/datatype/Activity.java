@@ -73,7 +73,10 @@ public class Activity {
                     convertedItem.getCoordinate().reverseXCoordinate();
                     convertedItem.getCoordinate().reverseYCoordinate();
                     Vector height = new Vector(field.getPointB(), field.getPointC());
-                    convertedItem.getCoordinate().convertAndNormalizeCoordinate(field.getPointA(), base, base.getLength(), height.getLength());
+                    Coordinate origin = new Coordinate(field.getPointA());
+                    origin.reverseXCoordinate();
+                    origin.reverseYCoordinate();
+                    convertedItem.getCoordinate().convertAndNormalizeCoordinate(origin, base, base.getLength(), height.getLength());
                     coordinateList.add(convertedItem);  
                 }
             } else {
@@ -86,7 +89,9 @@ public class Activity {
                     GPSItem convertedItem = new GPSItem(item);
                     convertedItem.getCoordinate().reverseXCoordinate();
                     Vector height = new Vector(field.getPointB(), field.getPointC());
-                    convertedItem.getCoordinate().convertAndNormalizeCoordinate(field.getPointA(), base, base.getLength(), height.getLength());
+                    Coordinate origin = new Coordinate(field.getPointA());
+                    origin.reverseXCoordinate();
+                    convertedItem.getCoordinate().convertAndNormalizeCoordinate(origin, base, base.getLength(), height.getLength());
                     coordinateList.add(convertedItem);  
                 }
             }
@@ -101,7 +106,9 @@ public class Activity {
                     GPSItem convertedItem = new GPSItem(item);
                     convertedItem.getCoordinate().reverseYCoordinate();
                     Vector height = new Vector(field.getPointB(), field.getPointC());
-                    convertedItem.getCoordinate().convertAndNormalizeCoordinate(field.getPointA(), base, base.getLength(), height.getLength());
+                    Coordinate origin = new Coordinate(field.getPointA());
+                    origin.reverseYCoordinate();
+                    convertedItem.getCoordinate().convertAndNormalizeCoordinate(origin, base, base.getLength(), height.getLength());
                     coordinateList.add(convertedItem);  
                 }
             } else {
